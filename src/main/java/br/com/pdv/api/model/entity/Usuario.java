@@ -4,12 +4,15 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import br.com.pdv.api.enumerated.PerfilEnum;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,10 +32,25 @@ public class Usuario implements Serializable {
 
     @Getter
     @Setter
-    private String login;
+    @Column(name = "email", nullable = false)
+    private String email;
 
     @Getter
     @Setter
+    @Column(name = "senha", nullable = false)
     private String senha;
+
+    @Getter
+    @Setter
+    @Enumerated(EnumType.STRING)
+    @Column(name = "perfil", nullable = false)
+    private PerfilEnum perfil;
+
+    public Usuario(Long id, String email, String senha, PerfilEnum perfil) {
+        this.id = id;
+        this.email = email;
+        this.senha = senha;
+        this.perfil = perfil;
+    }
 
 }
